@@ -1,5 +1,6 @@
 package com.example.thezo.fyp;
 
+import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Looper;
@@ -19,7 +20,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
@@ -30,41 +30,20 @@ public class MainScreen extends AppCompatActivity {
 
     private LocationRequest mLocationRequest;
 
-    private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
-    private long FASTEST_INTERVAL = 2000; /* 2 sec */
 
+    private long UPDATE_INTERVAL = 1 * 1000;  /* 1 sec */
+    private long FASTEST_INTERVAL = 200; /* .2 sec */
+    private TextView textView;
+    private int counter =0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-        client = getFusedLocationProviderClient(this);
 
         startLocationUpdates();
-        Button button = findViewById(R.id.getLocation);
-        final TextView textView = findViewById(R.id.location);
+        textView = findViewById(R.id.location);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                if (ActivityCompat.checkSelfPermission(MainScreen.this,
-                    ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED )
-                {
-                    return;
-                }
-
-                client.getLastLocation().addOnSuccessListener(MainScreen.this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        if(location != null){
-                            textView.setText(location.toString());
-                        }else{
-                            Toast.makeText(MainScreen.this, "Test2 - "+location.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-        });
     }
 
     // Trigger new location updates at interval
@@ -90,6 +69,7 @@ public class MainScreen extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(MainScreen.this,
                 ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED )
         {
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             return;
         }
         getFusedLocationProviderClient(MainScreen.this).requestLocationUpdates(mLocationRequest, new LocationCallback() {
@@ -106,7 +86,9 @@ public class MainScreen extends AppCompatActivity {
         String msg = "Updated Location: " +
                 Double.toString(location.getLatitude()) + "," +
                 Double.toString(location.getLongitude());
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        textView.setText(msg+" "+counter);
+        counter++;
         // You can now create a LatLng Object for use with maps
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
     }
