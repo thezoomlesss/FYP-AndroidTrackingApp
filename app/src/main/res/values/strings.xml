@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">FYP</string>
     <string name="buttonString">Button</string>
+    <string name="location">Location</string>
+    <string name="getLocation">Get Location</string>
+    <string name="LoginTitle">Login</string>
+    <string name="idCode">ID Code</string>
+    <string name="Password">Password</string>
 </resources>
