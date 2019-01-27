@@ -33,6 +33,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://www.google.com";
+
         company_edit = findViewById(R.id.idCompany);
         vehicle_edit = findViewById(R.id.idVehicle);
         pass_edit = findViewById(R.id.idPass);
@@ -44,9 +48,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if( !company_edit.getText().toString().isEmpty() && !vehicle_edit.getText().toString().isEmpty() && !pass_edit.getText().toString().isEmpty()){
-                    Intent intent = new Intent (LoginActivity.this, MainScreen.class);
-                    startActivity(intent);
-                    finish();
+
+
+//                    Intent intent = new Intent (LoginActivity.this, MainScreen.class);
+//                    startActivity(intent);
+//                    finish();
                     //Toast.makeText(LoginActivity.this, "Not Empty "+ company_edit.getText().toString() + " "+ vehicle_edit.getText().toString() + " "+ pass_edit.getText().toString(), Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(LoginActivity.this, "Empty " + company_edit.getText().toString() + " "+ vehicle_edit.getText().toString() + " "+ pass_edit.getText().toString(), Toast.LENGTH_SHORT).show();
@@ -55,9 +61,8 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://www.google.com";
+
+
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
