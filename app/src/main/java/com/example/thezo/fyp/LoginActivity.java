@@ -3,6 +3,7 @@ package com.example.thezo.fyp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,8 +35,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://www.google.com";
+        final RequestQueue queue = Volley.newRequestQueue(this);
+        final String baseUrl = SecretKeys.urlVehicleLogin;
 
         company_edit = findViewById(R.id.idCompany);
         vehicle_edit = findViewById(R.id.idVehicle);
@@ -48,11 +49,55 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if( !company_edit.getText().toString().isEmpty() && !vehicle_edit.getText().toString().isEmpty() && !pass_edit.getText().toString().isEmpty()){
+                    String urlToSend = baseUrl + "?cid="+company_edit.getText().toString()+"&plate="+vehicle_edit.getText().toString()+"&pass="+pass_edit.getText().toString();
+
+                    // Request a string response from the provided URL.
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, urlToSend, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            if(response.equals("CONFIRMED") ){
+                                // TODO Check header instead of message
+                                Intent intent = new Intent (LoginActivity.this, MainScreen.class);
+                                startActivity(intent);
+                                finish();
+                            }else{
+                                Toast.makeText(LoginActivity.this, "Wrong Login Data", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            if (error instanceof TimeoutError) {
+                                Toast.makeText(LoginActivity.this, "Error timeout!", Toast.LENGTH_SHORT).show();
+
+                            }else if( error instanceof NoConnectionError) {
+                                Log.e("ERROR", error.toString());
+                                Toast.makeText(LoginActivity.this, "Error no connection!", Toast.LENGTH_SHORT).show();
+
+                            } else if (error instanceof AuthFailureError) {
+                                Toast.makeText(LoginActivity.this, "Error auth!", Toast.LENGTH_SHORT).show();
+
+                            } else if (error instanceof ServerError) {
+                                Toast.makeText(LoginActivity.this, "Error ServerError!", Toast.LENGTH_SHORT).show();
+
+                            } else if (error instanceof NetworkError) {
+                                Toast.makeText(LoginActivity.this, "Error Network!", Toast.LENGTH_SHORT).show();
+
+                            } else if (error instanceof ParseError) {
+                                Toast.makeText(LoginActivity.this, "Error Parse!", Toast.LENGTH_SHORT).show();
+
+                            }else{
+                                Toast.makeText(LoginActivity.this, "IDK FAM!", Toast.LENGTH_SHORT).show();
+
+                            }
 
 
-//                    Intent intent = new Intent (LoginActivity.this, MainScreen.class);
-//                    startActivity(intent);
-//                    finish();
+                        }
+                    });
+
+                    // Add the request to the RequestQueue.
+                    queue.add(stringRequest);
+
                     //Toast.makeText(LoginActivity.this, "Not Empty "+ company_edit.getText().toString() + " "+ vehicle_edit.getText().toString() + " "+ pass_edit.getText().toString(), Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(LoginActivity.this, "Empty " + company_edit.getText().toString() + " "+ vehicle_edit.getText().toString() + " "+ pass_edit.getText().toString(), Toast.LENGTH_SHORT).show();
@@ -64,45 +109,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                // Display the first 500 characters of the response string.
-                Toast.makeText(LoginActivity.this, "Connection made", Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error instanceof TimeoutError) {
-                    Toast.makeText(LoginActivity.this, "Error timeout!", Toast.LENGTH_SHORT).show();
 
-                }else if( error instanceof NoConnectionError) {
-                    Toast.makeText(LoginActivity.this, "Error no connection!", Toast.LENGTH_SHORT).show();
-
-                } else if (error instanceof AuthFailureError) {
-                    Toast.makeText(LoginActivity.this, "Error auth!", Toast.LENGTH_SHORT).show();
-
-                } else if (error instanceof ServerError) {
-                    Toast.makeText(LoginActivity.this, "Error ServerError!", Toast.LENGTH_SHORT).show();
-
-                } else if (error instanceof NetworkError) {
-                    Toast.makeText(LoginActivity.this, "Error Network!", Toast.LENGTH_SHORT).show();
-
-                } else if (error instanceof ParseError) {
-                    Toast.makeText(LoginActivity.this, "Error Parse!", Toast.LENGTH_SHORT).show();
-
-                }else{
-                    Toast.makeText(LoginActivity.this, "IDK FAM!", Toast.LENGTH_SHORT).show();
-
-                }
-
-
-            }
-        });
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
 
 
     }
