@@ -17,23 +17,39 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/idCodeText"
+        android:id="@+id/idCompany"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
-        android:autofillHints="@string/idCode"
+        android:autofillHints="@string/idCompany"
         android:ems="10"
-        android:hint="@string/idCode"
-        android:inputType="textEmailAddress"
+        android:hint="@string/idCompany"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TitleTextView"
         tools:targetApi="o" />
 
     <EditText
-        android:id="@+id/passwordText"
+        android:id="@+id/idVehicle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:autofillHints="@string/idCode"
+        android:ems="10"
+        android:hint="@string/idCode"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idCompany"
+        tools:targetApi="o" />
+
+    <EditText
+        android:id="@+id/idPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -45,16 +61,16 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idCodeText"
+        app:layout_constraintTop_toBottomOf="@+id/idVehicle"
         tools:targetApi="o" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/idLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="@string/LoginTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordText" />
+        app:layout_constraintTop_toBottomOf="@+id/idPass" />
 </android.support.constraint.ConstraintLayout>
