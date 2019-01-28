@@ -3,7 +3,7 @@
     <string name="buttonString">Button</string>
     <string name="location">Location</string>
     <string name="getLocation">Get Location</string>
-    <string name="LoginTitle">Login</string>
+    <string name="LoginTitle">Welcome!</string>
     <string name="idCompany">Company ID</string>
     <string name="idCode">Vehicle ID</string>
     <string name="Password">Password</string>
