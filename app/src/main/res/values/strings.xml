@@ -9,4 +9,6 @@
     <string name="idCode">Vehicle ID</string>
     <string name="Password">Password</string>
     <string name="demo">Demo</string>
+    <string name="NumberPlate">Number Plate: </string>
+    <string name="Status">Status: </string>
 </resources>

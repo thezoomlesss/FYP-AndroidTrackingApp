@@ -49,12 +49,15 @@ public class MainScreen extends AppCompatActivity {
     private long FASTEST_INTERVAL = 200; /* .2 sec */
     private TextView textView;
     private int counter = 0;
-
+    private String companyID, number_plate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+        companyID = getIntent().getExtras().getString("companyID");
+        number_plate = getIntent().getExtras().getString("numberPlate");
 
+        Toast.makeText(this, companyID+number_plate, Toast.LENGTH_SHORT).show();
 //        startLocationUpdates();
         // Textview used to display the current location
         textView = findViewById(R.id.location);
@@ -103,7 +106,7 @@ public class MainScreen extends AppCompatActivity {
         });
 
         // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+//        queue.add(stringRequest);
     }
 
     // Trigger new location updates at interval

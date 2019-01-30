@@ -28,7 +28,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText company_edit, vehicle_edit, pass_edit;
     private Button login_button, demo_button;
 
-    public String Title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +50,14 @@ public class LoginActivity extends AppCompatActivity {
                 company_edit.setText(SecretKeys.companyID1);
                 vehicle_edit.setText(SecretKeys.vehicle1);
                 pass_edit.setText(SecretKeys.pass1);
+                demo_button.setClickable(false);
                 login_button.performClick();
+                login_button.setClickable(false);
             }
         });
 
-        // On click -> Check if the fields are empty then route to the next activity
-        // TODO Check login with DB
+
+        /* On click it will check with the database if the details are correct */
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +72,8 @@ public class LoginActivity extends AppCompatActivity {
                             if(response.equals("CONFIRMED") ){
                                 // TODO Check header instead of message
                                 Intent intent = new Intent (LoginActivity.this, MainScreen.class);
+                                intent.putExtra("companyID", company_edit.getText().toString());
+                                intent.putExtra("numberPlate", vehicle_edit.getText().toString());
                                 startActivity(intent);
                                 finish();
                             }else{
