@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/gradient"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="15dp">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/idVehicleIcon"
@@ -31,22 +32,33 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/NumberPlate"/>
+                android:text="@string/NumberPlate"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_marginEnd="5dp"
+                android:textSize="18sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Placeholder"/>
+                android:text="Placeholder"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="16sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Status"/>
+                android:text="@string/Status"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="10dp"
+                android:textSize="18sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Placeholder"/>
+                android:text="Placeholder"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="16sp"/>
 
         </android.support.v7.widget.LinearLayoutCompat>
     </android.support.v7.widget.LinearLayoutCompat>
