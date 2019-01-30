@@ -94,6 +94,16 @@
         android:text="@string/LoginButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idPass"
-        android:theme="@style/LoginButton"/>
+        app:layout_constraintTop_toBottomOf="@+id/idPass"/>
+
+    <Button
+        android:id="@+id/demoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="@string/demo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idLogin" />
+    <!--android:theme="@style/LoginButton"/>-->
 </android.support.constraint.ConstraintLayout>

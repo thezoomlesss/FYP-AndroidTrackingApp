@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
     // The elements present in this activity
     private EditText company_edit, vehicle_edit, pass_edit;
-    private Button login_button;
+    private Button login_button, demo_button;
 
     public String Title;
     @Override
@@ -42,6 +42,18 @@ public class LoginActivity extends AppCompatActivity {
         vehicle_edit = findViewById(R.id.idVehicle);
         pass_edit = findViewById(R.id.idPass);
         login_button = findViewById(R.id.idLogin);
+        demo_button = findViewById(R.id.demoButton);
+
+
+        demo_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                company_edit.setText(SecretKeys.companyID1);
+                vehicle_edit.setText(SecretKeys.vehicle1);
+                pass_edit.setText(SecretKeys.pass1);
+                login_button.performClick();
+            }
+        });
 
         // On click -> Check if the fields are empty then route to the next activity
         // TODO Check login with DB

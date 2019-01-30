@@ -8,4 +8,5 @@
     <string name="idCompany">Company ID</string>
     <string name="idCode">Vehicle ID</string>
     <string name="Password">Password</string>
+    <string name="demo">Demo</string>
 </resources>
