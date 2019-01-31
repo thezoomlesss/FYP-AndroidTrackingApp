@@ -3,9 +3,10 @@
     <string name="buttonString">Button</string>
     <string name="location">Location</string>
     <string name="getLocation">Get Location</string>
-    <string name="LoginTitle">IMFS</string>
+    <string name="LoginTitle">IFMS</string>
     <string name="LoginButton">Login</string>
     <string name="idCompany">Company ID</string>
+    <string name="StringCompany">Company</string>
     <string name="idCode">Vehicle ID</string>
     <string name="Password">Password</string>
     <string name="demo">Demo</string>

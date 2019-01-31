@@ -53,7 +53,7 @@ public class MainScreen extends AppCompatActivity {
     private long FASTEST_INTERVAL = 200; /* .2 sec */
     private TextView textView;
     private int counter = 0;
-    private String companyID, number_plate;
+    private String companyName, number_plate, vehicleStatus;
     private View topBar, detailToggle;
     private int topBarInitHeight;
 
@@ -61,13 +61,14 @@ public class MainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-        companyID = getIntent().getExtras().getString("companyID");
+        companyName = getIntent().getExtras().getString("companyName");
         number_plate = getIntent().getExtras().getString("numberPlate");
+        vehicleStatus = getIntent().getExtras().getString("vehicleStatus");
         getLocation = findViewById(R.id.getLocation);
 
         detailToggle = findViewById(R.id.detailToggle);
         topBar = findViewById(R.id.idDetailBar);
-        Toast.makeText(this, companyID+number_plate, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, companyName+number_plate+vehicleStatus, Toast.LENGTH_SHORT).show();
 //        startLocationUpdates();
         // Textview used to display the current location
         textView = findViewById(R.id.location);

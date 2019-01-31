@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -19,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -69,11 +71,19 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
 //                            Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
-                            if(response.equals("CONFIRMED") ){
-                                // TODO Check header instead of message
+                            if(response.substring(0, 3).equals("200")){
+                                // Getting the company name and status of the vehicle from this request
+                                String[] details = response.split(" ");
+                                String vehicleStatus = details[details.length-1];
+                                String companyName="";
+                                for(int i = 1; i< details.length-1; i++){
+                                    companyName += details[i] +" ";
+                                }
+
                                 Intent intent = new Intent (LoginActivity.this, MainScreen.class);
-                                intent.putExtra("companyID", company_edit.getText().toString());
                                 intent.putExtra("numberPlate", vehicle_edit.getText().toString());
+                                intent.putExtra("companyName", companyName);
+                                intent.putExtra("vehicleStatus", vehicleStatus);
                                 startActivity(intent);
                                 finish();
                             }else{
@@ -121,12 +131,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-
     }
+
 }

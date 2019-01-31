@@ -26,41 +26,76 @@
 
         <android.support.v7.widget.LinearLayoutCompat
             android:id="@+id/idDetailBar"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_gravity="center_horizontal">
-
-            <TextView
+            <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/NumberPlate"
-                android:fontFamily="@font/roboto_bold"
-                android:layout_marginEnd="5dp"
-                android:textSize="18sp"/>
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/StringCompany"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_marginEnd="5dp"
+                    android:textSize="18sp"/>
 
-            <TextView
+                <TextView
+                    android:id="@+id/idcompanyNameField"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Placeholder"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="16sp"/>
+            </android.support.v7.widget.LinearLayoutCompat>
+            <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Placeholder"
-                android:fontFamily="@font/roboto_light"
-                android:textSize="16sp"/>
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NumberPlate"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_marginEnd="5dp"
+                    android:textSize="18sp"/>
 
-            <TextView
+                <TextView
+                    android:id="@+id/idnumberPlateField"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Placeholder"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="16sp"/>
+            </android.support.v7.widget.LinearLayoutCompat>
+            <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Status"
-                android:fontFamily="@font/roboto_bold"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="10dp"
-                android:textSize="18sp"/>
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Status"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="10dp"
+                    android:textSize="18sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Placeholder"
-                android:fontFamily="@font/roboto_light"
-                android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/idVehicleStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Placeholder"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="16sp"/>
+            </android.support.v7.widget.LinearLayoutCompat>
+
+
 
         </android.support.v7.widget.LinearLayoutCompat>
     </android.support.v7.widget.LinearLayoutCompat>
