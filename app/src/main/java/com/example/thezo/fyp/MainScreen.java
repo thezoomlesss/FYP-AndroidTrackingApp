@@ -1,6 +1,7 @@
 package com.example.thezo.fyp;
 
 import android.Manifest;
+import android.app.ActionBar;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Looper;
@@ -9,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,25 +48,47 @@ public class MainScreen extends AppCompatActivity {
 
     private LocationRequest mLocationRequest;
 
-
+    private Button getLocation;
     private long UPDATE_INTERVAL = 1 * 1000;  /* 1 sec */
     private long FASTEST_INTERVAL = 200; /* .2 sec */
     private TextView textView;
     private int counter = 0;
     private String companyID, number_plate;
+    private View topBar, detailToggle;
+    private int topBarInitHeight;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         companyID = getIntent().getExtras().getString("companyID");
         number_plate = getIntent().getExtras().getString("numberPlate");
+        getLocation = findViewById(R.id.getLocation);
 
+        detailToggle = findViewById(R.id.detailToggle);
+        topBar = findViewById(R.id.idDetailBar);
         Toast.makeText(this, companyID+number_plate, Toast.LENGTH_SHORT).show();
 //        startLocationUpdates();
         // Textview used to display the current location
         textView = findViewById(R.id.location);
-
         // Post request to URL in order to update the location
+
+
+        /*
+            After the layout is created and inflated, get the height of the top bar that we expand/collapse
+         */
+        ViewTreeObserver vto = topBar.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener (new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                topBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                topBarInitHeight = topBar.getMeasuredHeight();
+
+            }
+        });
+
+
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -105,6 +131,27 @@ public class MainScreen extends AppCompatActivity {
             }
         });
 
+//      Icon that acts as a button to expand/collapse the top bar that contains the details
+        detailToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(topBar.getHeight() < topBarInitHeight){
+
+                    expand(topBar);
+                    detailToggle.animate().rotation(0).start();
+                }else{
+                    collapse(topBar);
+                    detailToggle.animate().rotation(180).start();
+                }
+
+            }
+        });
+
+        getLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
         // Add the request to the RequestQueue.
 //        queue.add(stringRequest);
     }
@@ -155,4 +202,62 @@ public class MainScreen extends AppCompatActivity {
         // You can now create a LatLng Object for use with maps
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
     }
+
+
+    public static void expand(final View v) {
+        v.measure(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
+        final int targetHeight = v.getMeasuredHeight();
+
+        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
+        v.getLayoutParams().height = 1;
+        v.setVisibility(View.VISIBLE);
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                v.getLayoutParams().height = interpolatedTime == 1
+                        ? ActionBar.LayoutParams.WRAP_CONTENT
+                        : (int)(targetHeight * interpolatedTime);
+                v.requestLayout();
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
+    }
+
+    public static void collapse(final View v) {
+        final int initialHeight = v.getMeasuredHeight();
+
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                if(interpolatedTime == 1){
+                    v.setVisibility(View.GONE);
+                }else{
+                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
+                    v.requestLayout();
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
+    }
+
+
 }
+

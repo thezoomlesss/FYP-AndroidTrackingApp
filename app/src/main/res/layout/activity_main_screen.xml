@@ -8,6 +8,7 @@
     tools:context=".MainScreen">
 
     <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/topLayerId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/gradient"
@@ -24,6 +25,7 @@
             android:src="@drawable/vehicle_icon" />
 
         <android.support.v7.widget.LinearLayoutCompat
+            android:id="@+id/idDetailBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -62,6 +64,26 @@
 
         </android.support.v7.widget.LinearLayoutCompat>
     </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:layout_constraintTop_toBottomOf="@id/topLayerId">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/detailToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_outline_expand_more_24px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
     <Button
         android:id="@+id/getLocation"
         android:layout_width="wrap_content"
