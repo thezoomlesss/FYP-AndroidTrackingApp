@@ -69,7 +69,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        app:layout_constraintTop_toBottomOf="@id/topLayerId">
+        app:layout_constraintTop_toBottomOf="@id/topLayerId"
+        android:background="@drawable/rounded_bottom"
+        >
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/detailToggle"
