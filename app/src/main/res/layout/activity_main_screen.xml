@@ -48,6 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Placeholder"
+                    android:textColor="#FFFFFF"
                     android:fontFamily="@font/roboto_light"
                     android:textSize="16sp"/>
             </android.support.v7.widget.LinearLayoutCompat>
@@ -69,6 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Placeholder"
+                    android:textColor="#FFFFFF"
                     android:fontFamily="@font/roboto_light"
                     android:textSize="16sp"/>
             </android.support.v7.widget.LinearLayoutCompat>
@@ -121,22 +123,12 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <Button
-        android:id="@+id/getLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/getLocation"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location" />
-
     <TextView
         android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
+        android:fontFamily="@font/roboto"
         android:text="@string/location"
         app:layout_constraintBottom_toTopOf="@+id/getLocation"
         app:layout_constraintEnd_toEndOf="parent"
@@ -144,4 +136,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.421" />
+    <Button
+        android:id="@+id/getLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="@string/getLocation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location" />
+
+
+    <Button
+        android:id="@+id/idLogOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/LogOut"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getLocation" />
 </android.support.constraint.ConstraintLayout>

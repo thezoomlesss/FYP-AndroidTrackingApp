@@ -2,7 +2,9 @@ package com.example.thezo.fyp;
 
 import android.Manifest;
 import android.app.ActionBar;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
@@ -48,10 +50,10 @@ public class MainScreen extends AppCompatActivity {
 
     private LocationRequest mLocationRequest;
 
-    private Button getLocation;
+    private Button getLocation, logOut;
     private long UPDATE_INTERVAL = 1 * 1000;  /* 1 sec */
     private long FASTEST_INTERVAL = 200; /* .2 sec */
-    private TextView textView;
+    private TextView textView, companyNameText, numberPlateText, vehicleStatusText;
     private int counter = 0;
     private String companyName, number_plate, vehicleStatus;
     private View topBar, detailToggle;
@@ -64,10 +66,24 @@ public class MainScreen extends AppCompatActivity {
         companyName = getIntent().getExtras().getString("companyName");
         number_plate = getIntent().getExtras().getString("numberPlate");
         vehicleStatus = getIntent().getExtras().getString("vehicleStatus");
+        companyNameText = findViewById(R.id.idcompanyNameField);
+        numberPlateText = findViewById(R.id.idnumberPlateField);
+        vehicleStatusText = findViewById(R.id.idVehicleStatus);
         getLocation = findViewById(R.id.getLocation);
-
         detailToggle = findViewById(R.id.detailToggle);
         topBar = findViewById(R.id.idDetailBar);
+        logOut = findViewById(R.id.idLogOut);
+
+        companyNameText.setText(companyName);
+        numberPlateText.setText(number_plate);
+        vehicleStatusText.setText(vehicleStatus);
+
+        if(vehicleStatus.equals("Active")) {
+            vehicleStatusText.setTextColor(Color.GREEN);
+        }else{
+            vehicleStatusText.setTextColor(Color.RED);
+        }
+
         Toast.makeText(this, companyName+number_plate+vehicleStatus, Toast.LENGTH_SHORT).show();
 //        startLocationUpdates();
         // Textview used to display the current location
@@ -148,6 +164,14 @@ public class MainScreen extends AppCompatActivity {
             }
         });
 
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (MainScreen.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         getLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
