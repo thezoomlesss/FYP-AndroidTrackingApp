@@ -13,4 +13,5 @@
     <string name="NumberPlate">Number Plate: </string>
     <string name="Status">Status: </string>
     <string name="LogOut">Log Out </string>
+    <string name="ReportProblem">Report Issue</string>
 </resources>
