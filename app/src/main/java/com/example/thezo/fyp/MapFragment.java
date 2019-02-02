@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
@@ -127,8 +128,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mGoogleMap = googleMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(40.689247, -74044502)).title("The Statue of Liberty").snippet("Test"));
-        CameraPosition Liberty = CameraPosition.builder().target(new LatLng(40.689247, -74044502)).zoom(16).bearing(0).tilt(45).build();
+        googleMap.addMarker(new MarkerOptions().position(new LatLng(40.702765, -74.032574)).title("The Statue of Liberty").snippet("Test"));
+        CameraPosition Liberty = CameraPosition.builder().target(new LatLng(40.702765, -74.032574)).zoom(16).bearing(0).tilt(45).build();
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Liberty));
     }
 
     /**
