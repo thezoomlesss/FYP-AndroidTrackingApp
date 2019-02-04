@@ -20,6 +20,7 @@
             android:layout_height="wrap_content">
 
             <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/idLogOutImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -165,7 +166,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idLogOut" />
+        app:layout_constraintTop_toBottomOf="@+id/getLocation" />
     <Button
         android:id="@+id/getLocation"
         android:layout_width="wrap_content"
@@ -178,19 +179,7 @@
         app:layout_constraintTop_toBottomOf="@+id/location" />
 
 
-    <Button
-        android:id="@+id/idLogOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="86dp"
-        android:fontFamily="@font/roboto"
-        android:text="@string/LogOut"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getLocation" />
+
 
     <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat"

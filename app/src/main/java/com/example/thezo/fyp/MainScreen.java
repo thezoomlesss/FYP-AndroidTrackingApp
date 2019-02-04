@@ -18,6 +18,7 @@ import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,13 +53,14 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
 
     private LocationRequest mLocationRequest;
 
-    private Button getLocation, logOut;
+    private Button getLocation;
     private long UPDATE_INTERVAL = 1 * 1000;  /* 1 sec */
     private long FASTEST_INTERVAL = 200; /* .2 sec */
     private TextView textView, companyNameText, numberPlateText, vehicleStatusText;
     private int counter = 0;
     private String companyName, number_plate, vehicleStatus;
     private View topBar, detailToggle;
+    private ImageView logOut;
     private int topBarInitHeight;
 
     @Override
@@ -74,7 +76,7 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
         getLocation = findViewById(R.id.getLocation);
         detailToggle = findViewById(R.id.detailToggle);
         topBar = findViewById(R.id.idDetailBar);
-        logOut = findViewById(R.id.idLogOut);
+        logOut = findViewById(R.id.idLogOutImage);
 
         companyNameText.setText(companyName);
         numberPlateText.setText(number_plate);
