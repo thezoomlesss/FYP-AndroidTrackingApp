@@ -1,6 +1,9 @@
 package com.example.thezo.fyp;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +26,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -58,7 +63,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
+        /*
+            Asking for permission the first time the user opens the app (or everytime when the permission is not granted)
+         */
+        if (ActivityCompat.checkSelfPermission(LoginActivity.this,
+                ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
         /* On click it will check with the database if the details are correct */
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override

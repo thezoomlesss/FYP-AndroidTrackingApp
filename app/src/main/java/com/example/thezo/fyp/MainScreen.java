@@ -82,14 +82,15 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
         numberPlateText.setText(number_plate);
         vehicleStatusText.setText(vehicleStatus);
 
+        // Changing the colour of the status TextView depending on the value
         if(vehicleStatus.equals("Active")) {
             vehicleStatusText.setTextColor(Color.GREEN);
         }else{
             vehicleStatusText.setTextColor(Color.RED);
         }
 
-        Toast.makeText(this, companyName+number_plate+vehicleStatus, Toast.LENGTH_SHORT).show();
-//        startLocationUpdates();
+//        Toast.makeText(this, companyName+number_plate+vehicleStatus, Toast.LENGTH_SHORT).show();
+        startLocationUpdates();
         // Textview used to display the current location
         textView = findViewById(R.id.location);
         // Post request to URL in order to update the location
@@ -112,11 +113,11 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
 
 
         // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
+        final RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://www.google.com";
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        final StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 // Display the first 500 characters of the response string.
@@ -179,10 +180,11 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
         getLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                queue.add(stringRequest);
+                Toast.makeText(MainScreen.this, "Location", Toast.LENGTH_SHORT).show();
             }
         });
         // Add the request to the RequestQueue.
-//        queue.add(stringRequest);
     }
 
     // Trigger new location updates at interval
@@ -218,6 +220,37 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
                     }
                 },
                 Looper.myLooper());
+
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    startLocationUpdates();
+                    Toast.makeText(this, "PERMISSION GRANTED", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(MainScreen.this, "Permission denied to access location", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     public void onLocationChanged(Location location) {
@@ -233,6 +266,7 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
     }
 
 
+    // Used to expand a view with an animation
     public static void expand(final View v) {
         v.measure(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
         final int targetHeight = v.getMeasuredHeight();
@@ -261,6 +295,7 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
         v.startAnimation(a);
     }
 
+    // Used to collapse a view with an animation
     public static void collapse(final View v) {
         final int initialHeight = v.getMeasuredHeight();
 
@@ -287,7 +322,7 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
         v.startAnimation(a);
     }
 
-
+    // Needed to implement the map
     @Override
     public void onFragmentInteraction(Uri uri) {
 
