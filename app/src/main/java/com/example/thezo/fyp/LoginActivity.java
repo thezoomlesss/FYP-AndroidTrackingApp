@@ -92,9 +92,12 @@ public class LoginActivity extends AppCompatActivity {
                                 }
 
                                 Intent intent = new Intent (LoginActivity.this, MainScreen.class);
+
+                                intent.putExtra("companyID", company_edit.getText().toString());
                                 intent.putExtra("numberPlate", vehicle_edit.getText().toString());
                                 intent.putExtra("companyName", companyName);
                                 intent.putExtra("vehicleStatus", vehicleStatus);
+                                intent.putExtra("pass",pass_edit.getText().toString());
                                 startActivity(intent);
                                 finish();
                             }else{

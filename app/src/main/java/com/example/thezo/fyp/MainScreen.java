@@ -58,18 +58,21 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
     private long FASTEST_INTERVAL = 200; /* .2 sec */
     private TextView textView, companyNameText, numberPlateText, vehicleStatusText;
     private int counter = 0;
-    private String companyName, number_plate, vehicleStatus;
+    private String companyName, number_plate, vehicleStatus, companyID, pass;
     private View topBar, detailToggle;
     private ImageView logOut;
     private int topBarInitHeight;
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+        companyID = getIntent().getExtras().getString("companyID");
         companyName = getIntent().getExtras().getString("companyName");
         number_plate = getIntent().getExtras().getString("numberPlate");
         vehicleStatus = getIntent().getExtras().getString("vehicleStatus");
+        pass = getIntent().getExtras().getString("pass");
         companyNameText = findViewById(R.id.idcompanyNameField);
         numberPlateText = findViewById(R.id.idnumberPlateField);
         vehicleStatusText = findViewById(R.id.idVehicleStatus);
@@ -77,6 +80,8 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
         detailToggle = findViewById(R.id.detailToggle);
         topBar = findViewById(R.id.idDetailBar);
         logOut = findViewById(R.id.idLogOutImage);
+
+        queue = Volley.newRequestQueue(this);
 
         companyNameText.setText(companyName);
         numberPlateText.setText(number_plate);
@@ -112,46 +117,8 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
 
 
 
-        // Instantiate the RequestQueue.
-        final RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://www.google.com";
-
-        // Request a string response from the provided URL.
-        final StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                // Display the first 500 characters of the response string.
-                Toast.makeText(MainScreen.this, "Connection made", Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error instanceof TimeoutError) {
-                    Toast.makeText(MainScreen.this, "Error timeout!", Toast.LENGTH_SHORT).show();
-
-                }else if( error instanceof NoConnectionError) {
-                    Toast.makeText(MainScreen.this, "Error no connection!", Toast.LENGTH_SHORT).show();
-
-                } else if (error instanceof AuthFailureError) {
-                    Toast.makeText(MainScreen.this, "Error auth!", Toast.LENGTH_SHORT).show();
-
-                } else if (error instanceof ServerError) {
-                    Toast.makeText(MainScreen.this, "Error ServerError!", Toast.LENGTH_SHORT).show();
-
-                } else if (error instanceof NetworkError) {
-                    Toast.makeText(MainScreen.this, "Error Network!", Toast.LENGTH_SHORT).show();
-
-                } else if (error instanceof ParseError) {
-                    Toast.makeText(MainScreen.this, "Error Parse!", Toast.LENGTH_SHORT).show();
-
-                }else{
-                    Toast.makeText(MainScreen.this, "IDK FAM!", Toast.LENGTH_SHORT).show();
-
-                }
 
 
-            }
-        });
 
 //      Icon that acts as a button to expand/collapse the top bar that contains the details
         detailToggle.setOnClickListener(new View.OnClickListener() {
@@ -180,8 +147,7 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
         getLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                queue.add(stringRequest);
-                Toast.makeText(MainScreen.this, "Location", Toast.LENGTH_SHORT).show();
+
             }
         });
         // Add the request to the RequestQueue.
@@ -263,6 +229,45 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
         counter++;
         // You can now create a LatLng Object for use with maps
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        String urlVehicleLocUpdate = SecretKeys.urlVehicleLocUpdate + "?companyID="+companyID+"&plate="+number_plate+"&pass="+pass+"&lat="+Double.toString(location.getLatitude())+"&long="+Double.toString(location.getLongitude());
+
+        // Request a string response from the provided URL.
+        final StringRequest stringRequest = new StringRequest(Request.Method.PUT, urlVehicleLocUpdate, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Display the first 500 characters of the response string.
+                Toast.makeText(MainScreen.this, "Connection made", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error instanceof TimeoutError) {
+                    Toast.makeText(MainScreen.this, "Error timeout!", Toast.LENGTH_SHORT).show();
+
+                }else if( error instanceof NoConnectionError) {
+                    Toast.makeText(MainScreen.this, "Error no connection!", Toast.LENGTH_SHORT).show();
+
+                } else if (error instanceof AuthFailureError) {
+                    Toast.makeText(MainScreen.this, "Error auth!", Toast.LENGTH_SHORT).show();
+
+                } else if (error instanceof ServerError) {
+                    Toast.makeText(MainScreen.this, "Error ServerError!", Toast.LENGTH_SHORT).show();
+
+                } else if (error instanceof NetworkError) {
+                    Toast.makeText(MainScreen.this, "Error Network!", Toast.LENGTH_SHORT).show();
+
+                } else if (error instanceof ParseError) {
+                    Toast.makeText(MainScreen.this, "Error Parse!", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    Toast.makeText(MainScreen.this, "IDK FAM!", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+        queue.add(stringRequest);
+
     }
 
 
