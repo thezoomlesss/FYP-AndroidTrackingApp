@@ -42,12 +42,18 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
-public class MainScreen extends FragmentActivity implements MapFragment.OnFragmentInteractionListener {
+public class MainScreen extends FragmentActivity implements MapFragment.OnFragmentInteractionListener, OnMapReadyCallback {
 
     private FusedLocationProviderClient client;
 
@@ -63,6 +69,7 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
     private ImageView logOut;
     private int topBarInitHeight;
     private RequestQueue queue;
+    private GoogleMap gMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +87,10 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
         detailToggle = findViewById(R.id.detailToggle);
         topBar = findViewById(R.id.idDetailBar);
         logOut = findViewById(R.id.idLogOutImage);
+
+
+        SupportMapFragment fragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.fragment2);
+        fragment.getMapAsync(this);
 
         queue = Volley.newRequestQueue(this);
 
@@ -266,7 +277,7 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
             }
         });
 
-        queue.add(stringRequest);
+//        queue.add(stringRequest);
 
     }
 
@@ -330,6 +341,17 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
     // Needed to implement the map
     @Override
     public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        gMap = googleMap;
+        CameraPosition Liberty = CameraPosition.builder().target(new LatLng(40.702765, -74.032574)).zoom(16).bearing(0).tilt(45).build();
+        gMap.moveCamera(CameraUpdateFactory.newCameraPosition(Liberty));
+        gMap.addMarker(new MarkerOptions().position(new LatLng(40.702765, -74.032574)).title("The Statue of Liberty").snippet("Test"));
+
+        // add marker from here
 
     }
 }

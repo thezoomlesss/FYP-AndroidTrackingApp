@@ -156,9 +156,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/idDropDownHolder" />
 
+    <!--<fragment-->
+        <!--android:id="@+id/fragment"-->
+        <!--android:name="com.example.thezo.fyp.MapFragment"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/getLocation" />-->
+
     <fragment
-        android:id="@+id/fragment"
-        android:name="com.example.thezo.fyp.MapFragment"
+        android:id="@+id/fragment2"
+        android:name="com.example.thezo.fyp.MapContainer"
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -167,60 +180,61 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getLocation" />
+
+<Button
+    android:id="@+id/getLocation"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/roboto"
+    android:text="@string/getLocation"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/location" />
+
+
+
+
+<android.support.v7.widget.LinearLayoutCompat
+    android:id="@+id/linearLayoutCompat"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_top"
+    android:orientation="horizontal"
+    android:weightSum="2"
+    app:layout_constraintBottom_toBottomOf="parent">
+
     <Button
-        android:id="@+id/getLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto"
-        android:text="@string/getLocation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location" />
-
-
-
-
-    <android.support.v7.widget.LinearLayoutCompat
-        android:id="@+id/linearLayoutCompat"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_top"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/round_redrasp_button"
+        android:shadowColor="@color/Black"
+        android:shadowDx="2.0"
+        android:shadowDy="2.0"
+        android:shadowRadius="5.0"
+        android:text="1"
+        android:textColor="@color/White" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_redrasp_button"
-            android:shadowColor="@color/Black"
-            android:shadowDx="2.0"
-            android:shadowDy="2.0"
-            android:shadowRadius="5.0"
-            android:text="1"
-            android:textColor="@color/White" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/round_green_button"
-            android:shadowColor="@color/Black"
-            android:shadowDx="2.0"
-            android:shadowDy="2.0"
-            android:shadowRadius="5.0"
-            android:text="2"
-            android:textColor="@color/White" />
-    </android.support.v7.widget.LinearLayoutCompat>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/round_green_button"
+        android:shadowColor="@color/Black"
+        android:shadowDx="2.0"
+        android:shadowDy="2.0"
+        android:shadowRadius="5.0"
+        android:text="2"
+        android:textColor="@color/White" />
+</android.support.v7.widget.LinearLayoutCompat>
 
 </android.support.constraint.ConstraintLayout>

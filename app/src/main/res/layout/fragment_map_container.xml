@@ -3,12 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapFragment">
-    <com.google.android.gms.maps.MapView
+    tools:context=".MapContainer">
+
+    <!-- TODO: Update blank fragment layout -->
+    <fragment
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mapTest"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/idMap"
-        >
-    </com.google.android.gms.maps.MapView>
+        class="com.google.android.gms.maps.SupportMapFragment"
+        />
+
 
 </FrameLayout>
