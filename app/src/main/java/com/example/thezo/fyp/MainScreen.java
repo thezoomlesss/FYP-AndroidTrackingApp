@@ -239,15 +239,20 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
         textView.setText(msg + " " + counter);
         counter++;
         // You can now create a LatLng Object for use with maps
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         String urlVehicleLocUpdate = SecretKeys.urlVehicleLocUpdate + "?companyID="+companyID+"&plate="+number_plate+"&pass="+pass+"&lat="+Double.toString(location.getLatitude())+"&long="+Double.toString(location.getLongitude());
 
         // Request a string response from the provided URL.
-        final StringRequest stringRequest = new StringRequest(Request.Method.PUT, urlVehicleLocUpdate, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, urlVehicleLocUpdate, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 // Display the first 500 characters of the response string.
                 Toast.makeText(MainScreen.this, "Connection made", Toast.LENGTH_SHORT).show();
+                if(gMap != null){
+                    CameraPosition currentLoc = CameraPosition.builder().target(latLng).zoom(16).bearing(0).tilt(0).build();
+                    gMap.moveCamera(CameraUpdateFactory.newCameraPosition(currentLoc));
+                    gMap.addMarker(new MarkerOptions().position(latLng).title("Current Location").snippet("You are here"));
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -277,7 +282,7 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
             }
         });
 
-//        queue.add(stringRequest);
+        queue.add(stringRequest);
 
     }
 
@@ -347,11 +352,8 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
     @Override
     public void onMapReady(GoogleMap googleMap) {
         gMap = googleMap;
-        CameraPosition Liberty = CameraPosition.builder().target(new LatLng(40.702765, -74.032574)).zoom(16).bearing(0).tilt(45).build();
-        gMap.moveCamera(CameraUpdateFactory.newCameraPosition(Liberty));
-        gMap.addMarker(new MarkerOptions().position(new LatLng(40.702765, -74.032574)).title("The Statue of Liberty").snippet("Test"));
 
-        // add marker from here
+
 
     }
 }
