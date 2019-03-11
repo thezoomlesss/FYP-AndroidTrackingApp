@@ -49,6 +49,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
@@ -87,6 +90,12 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
         detailToggle = findViewById(R.id.detailToggle);
         topBar = findViewById(R.id.idDetailBar);
         logOut = findViewById(R.id.idLogOutImage);
+
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("messages");
+        myRef.push().setValue("Hello, World!");
+
 
 
         SupportMapFragment fragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.fragment2);
