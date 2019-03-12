@@ -94,7 +94,8 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("messages");
-        myRef.push().setValue("Hello, World!");
+        SingleMessage msg = new SingleMessage("02-MH-2472", "Yeeeeooo");
+        myRef.push().setValue(msg);
 
 
 
