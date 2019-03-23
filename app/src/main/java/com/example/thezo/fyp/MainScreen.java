@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.Transformation;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -50,8 +51,13 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Map;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
@@ -69,7 +75,7 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
     private int counter = 0;
     private String companyName, number_plate, vehicleStatus, companyID, pass;
     private View topBar, detailToggle;
-    private ImageView logOut;
+    private ImageView logOut, chatButton;
     private int topBarInitHeight;
     private RequestQueue queue;
     private GoogleMap gMap;
@@ -90,12 +96,35 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
         detailToggle = findViewById(R.id.detailToggle);
         topBar = findViewById(R.id.idDetailBar);
         logOut = findViewById(R.id.idLogOutImage);
+        chatButton = findViewById(R.id.idChatButton);
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("messages");
-        SingleMessage msg = new SingleMessage("02-MH-2472", "Yeeeeooo");
-        myRef.push().setValue(msg);
+        SingleMessage msg = new SingleMessage("02-MH-2472", "server", "First message");
+        //myRef.push().setValue(msg);
+        SingleMessage msg2 = new SingleMessage("02-MH-2472", "server", "Second message");
+        //myRef.push().setValue(msg2);
+
+        // Read from the database
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+//                String value = dataSnapshot.getValue(String.class);
+//                Log.d("Messages ", "Value is: " + value);
+
+                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                Log.d("Messages ", "Value is: " + map);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Error: ", "Failed to read value.", error.toException());
+            }
+        });
 
 
 
@@ -160,7 +189,18 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(AnimationUtils.loadAnimation(v.getContext(), R.anim.on_click_animation));
                 Intent intent = new Intent (MainScreen.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                v.startAnimation(AnimationUtils.loadAnimation(v.getContext(), R.anim.on_click_animation));
+                Intent intent = new Intent (MainScreen.this, ChatActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -1,20 +1,36 @@
 package com.example.thezo.fyp;
 
 public class SingleMessage {
-    private String numberPlate;
+    private String sender;
+    private String reciever;
     private String message;
+    private String conversation;
 
-    public SingleMessage(String numberPlate, String message) {
-        this.numberPlate = numberPlate;
+    public SingleMessage(String numberPlate, String reciever,String message) {
+        this.sender = numberPlate;
+        this.reciever = reciever;
         this.message = message;
+        this.conversation = "server " + numberPlate;
     }
 
-    public String getNumberPlate() {
-        return numberPlate;
+    public String getConversation() {
+        return conversation;
     }
 
-    public void setNumberPlate(String numberPlate) {
-        this.numberPlate = numberPlate;
+    public String getReciever() {
+        return reciever;
+    }
+
+    public void setReciever(String reciever) {
+        this.reciever = reciever;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String numberPlate) {
+        this.sender = numberPlate;
     }
 
     public String getMessage() {

@@ -9,9 +9,5 @@
 
 
     </style>
-    <style name="LoginButton" parent="Theme.AppCompat.Light">
-        <item name="colorControlHighlight">@color/Thistle</item>
-        <item name="colorButtonNormal">@color/PaleTurquoise</item>
-    </style>
 
 </resources>

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">FYP</string>
-    <string name="buttonString">Button</string>
     <string name="location">Location</string>
     <string name="getLocation">Get Location</string>
     <string name="LoginTitle">IFMS</string>
@@ -12,9 +11,6 @@
     <string name="demo">Demo</string>
     <string name="NumberPlate">Number Plate: </string>
     <string name="Status">Status: </string>
-    <string name="LogOut">Log Out </string>
-    <string name="ReportProblem">Report Issue</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
