@@ -99,33 +99,17 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
         chatButton = findViewById(R.id.idChatButton);
 
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("messages");
-        SingleMessage msg = new SingleMessage("02-MH-2472", "server", "First message");
-        //myRef.push().setValue(msg);
-        SingleMessage msg2 = new SingleMessage("02-MH-2472", "server", "Second message");
-        //myRef.push().setValue(msg2);
 
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-//                String value = dataSnapshot.getValue(String.class);
-//                Log.d("Messages ", "Value is: " + value);
-
-                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                Log.d("Messages ", "Value is: " + map);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("Error: ", "Failed to read value.", error.toException());
-            }
-        });
-
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("messages");
+//        SingleMessage msg = new SingleMessage("02-MH-4247", "server", "First message", "22/03/2019 03:37:43 PM", "server 02-MH-4247");
+//        myRef.push().setValue(msg);
+//        SingleMessage msg2 = new SingleMessage("02-MH-4247", "server", "Second message", "22/03/2019 03:37:43 PM", "server 02-MH-4247");
+//        myRef.push().setValue(msg2);
+//        msg = new SingleMessage("02-MH-4247", "server", "Fourth message", "22/03/2019 03:37:43 PM", "server 02-MH-4247");
+//        myRef.push().setValue(msg);
+//        msg2 = new SingleMessage("02-MH-4247", "server", "Test2", "22/03/2019 03:37:43 PM", "server 02-MH-4247");
+//        myRef.push().setValue(msg2);
 
 
         SupportMapFragment fragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.fragment2);
@@ -201,8 +185,8 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
 
                 v.startAnimation(AnimationUtils.loadAnimation(v.getContext(), R.anim.on_click_animation));
                 Intent intent = new Intent (MainScreen.this, ChatActivity.class);
+                intent.putExtra("numberPlate", number_plate);
                 startActivity(intent);
-                finish();
             }
         });
         getLocation.setOnClickListener(new View.OnClickListener() {

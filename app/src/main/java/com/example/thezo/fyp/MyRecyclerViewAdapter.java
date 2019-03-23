@@ -14,11 +14,13 @@ import java.util.ArrayList;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<String> messages_AL = new ArrayList<>();
-    private Context mContext;
+//    private ArrayList<String> messages_AL = new ArrayList<>();
+    private ArrayList<SingleMessage> singleMessagesAL = new ArrayList<>();
 
-    public MyRecyclerViewAdapter(Context mContext, ArrayList<String> messages_AL) {
-        this.messages_AL = messages_AL;
+    private Context mContext;
+//    ArrayList<String> messages_AL,
+    public MyRecyclerViewAdapter(Context mContext,  ArrayList<SingleMessage> singleMessagesAL) {
+        this.singleMessagesAL = singleMessagesAL;
         this.mContext = mContext;
     }
 
@@ -32,20 +34,30 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        if(messages_AL.get(i).equals("Test2")){
 
-            viewHolder.message_left.setText(messages_AL.get(i));
+        if(singleMessagesAL.get(i).getSender().equals("server")){
+
+            viewHolder.message_left.setText(singleMessagesAL.get(i).getMessage());
             viewHolder.message_right.setVisibility(LinearLayout.GONE);
         }else{
-            viewHolder.message_right.setText(messages_AL.get(i));
+            viewHolder.message_right.setText(singleMessagesAL.get(i).getMessage());
             viewHolder.message_left.setVisibility(LinearLayout.GONE);
 
         }
+//        if(messages_AL.get(i).equals("Test2")){
+//
+//            viewHolder.message_left.setText(messages_AL.get(i));
+//            viewHolder.message_right.setVisibility(LinearLayout.GONE);
+//        }else{
+//            viewHolder.message_right.setText(messages_AL.get(i));
+//            viewHolder.message_left.setVisibility(LinearLayout.GONE);
+//
+//        }
     }
 
     @Override
     public int getItemCount() {
-        return messages_AL.size();
+        return singleMessagesAL.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
