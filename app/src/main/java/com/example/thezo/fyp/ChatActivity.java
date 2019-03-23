@@ -62,30 +62,30 @@ public class ChatActivity extends AppCompatActivity {
 
 
         recyclerView = (RecyclerView) findViewById(R.id.reyclerview_message_list);
-        messages_AL.add("Test1");
-        messages_AL.add("Test2");
-        messages_AL.add("Test3");
-        messages_AL.add("Test4");
-        messages_AL.add("Test1");
-        messages_AL.add("Test2");
-        messages_AL.add("Test3");
-        messages_AL.add("Test4");
-        messages_AL.add("Test1");
-        messages_AL.add("Test2");
-        messages_AL.add("Test3");
-        messages_AL.add("Test4");
-        messages_AL.add("Test1");
-        messages_AL.add("Test2");
-        messages_AL.add("Test3");
-        messages_AL.add("Test4");
-        messages_AL.add("Test1");
-        messages_AL.add("Test2");
-        messages_AL.add("Test3");
-        messages_AL.add("Test4");
-        messages_AL.add("Test1");
-        messages_AL.add("Test2");
-        messages_AL.add("Test3");
-        messages_AL.add("Test4");
+//        messages_AL.add("Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 ");
+//        messages_AL.add("Test2");
+//        messages_AL.add("Test3");
+//        messages_AL.add("Test4");
+//        messages_AL.add("Test1");
+//        messages_AL.add("Test2");
+//        messages_AL.add("Test3");
+//        messages_AL.add("Test4");
+//        messages_AL.add("Test1Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 ");
+//        messages_AL.add("Test2 Test2Test2Test2Te st2Test2Test2Test2Test 2Test2Test2Test2Test 2Test2Te st2Test2Test2Test 2Test2Test2Test2");
+//        messages_AL.add("Test3");
+//        messages_AL.add("Test4");
+//        messages_AL.add("Test1Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 ");
+//        messages_AL.add("Test2");
+//        messages_AL.add("Test3");
+//        messages_AL.add("Test4");
+//        messages_AL.add("Test1Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 ");
+//        messages_AL.add("Test2");
+//        messages_AL.add("Test3");
+//        messages_AL.add("Test4");
+//        messages_AL.add("Test1");
+//        messages_AL.add("Test2");
+//        messages_AL.add("Test3");
+//        messages_AL.add("Test4");
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
 //        recyclerView.setHasFixedSize(true);
