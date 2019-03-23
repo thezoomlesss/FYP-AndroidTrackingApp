@@ -1,12 +1,17 @@
 package com.example.thezo.fyp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -31,29 +36,20 @@ public class ChatActivity extends AppCompatActivity {
     private ArrayList<String> messages_AL = new ArrayList<>();
     private ArrayList<SingleMessage> singleMessageAL = new ArrayList<>();
     private String number_plate, numberPlateFormatted;
+    Button chatSend;
+    EditText messageField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        chatSend = findViewById(R.id.button_chatbox_send);
+        messageField = findViewById(R.id.edittext_chatbox);
         // Getting the identity from the previous activity
         number_plate = getIntent().getExtras().getString("numberPlate");
         numberPlateFormatted = number_plate.substring(0,2) + '-' + number_plate.substring(2,4) + '-' + number_plate.substring(4);
         Log.d("ChatActivity", "onCreate: "+numberPlateFormatted);
-
-
-
-        Date c = Calendar.getInstance().getTime();
-
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
-        String formattedDate = df.format(c);
-        formattedDate = formattedDate.replace('p','P');
-        formattedDate = formattedDate.replace('m','M');
-        formattedDate = formattedDate.replace('a','A');
-        formattedDate = formattedDate.replace(".","");
-
-        Log.d("Date", "DateTime: "+ formattedDate );
 
 
 
@@ -62,30 +58,6 @@ public class ChatActivity extends AppCompatActivity {
 
 
         recyclerView = (RecyclerView) findViewById(R.id.reyclerview_message_list);
-//        messages_AL.add("Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 ");
-//        messages_AL.add("Test2");
-//        messages_AL.add("Test3");
-//        messages_AL.add("Test4");
-//        messages_AL.add("Test1");
-//        messages_AL.add("Test2");
-//        messages_AL.add("Test3");
-//        messages_AL.add("Test4");
-//        messages_AL.add("Test1Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 ");
-//        messages_AL.add("Test2 Test2Test2Test2Te st2Test2Test2Test2Test 2Test2Test2Test2Test 2Test2Te st2Test2Test2Test 2Test2Test2Test2");
-//        messages_AL.add("Test3");
-//        messages_AL.add("Test4");
-//        messages_AL.add("Test1Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 ");
-//        messages_AL.add("Test2");
-//        messages_AL.add("Test3");
-//        messages_AL.add("Test4");
-//        messages_AL.add("Test1Test1 Test1 Test1 Test1 Test1 Test1 Test1 Test1 ");
-//        messages_AL.add("Test2");
-//        messages_AL.add("Test3");
-//        messages_AL.add("Test4");
-//        messages_AL.add("Test1");
-//        messages_AL.add("Test2");
-//        messages_AL.add("Test3");
-//        messages_AL.add("Test4");
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
 //        recyclerView.setHasFixedSize(true);
@@ -97,7 +69,7 @@ public class ChatActivity extends AppCompatActivity {
 //        layoutManager = new LinearLayoutManager(this);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("messages");
+        final DatabaseReference myRef = database.getReference("messages");
 //        SingleMessage msg = new SingleMessage("02-MH-2472", "server", "First message");
 //        //myRef.push().setValue(msg);
 //        SingleMessage msg2 = new SingleMessage("02-MH-2472", "server", "Second message");
@@ -107,7 +79,7 @@ public class ChatActivity extends AppCompatActivity {
         final ProgressDialog Dialog = new ProgressDialog(this);
         Dialog.setMessage("Retrieving messages...");
         Dialog.show();
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -130,6 +102,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
 //                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                 mAdapter.notifyDataSetChanged();
+                recyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
                 Dialog.hide();
 //                Log.d("DateTime ", "Value is: " + map);
             }
@@ -141,6 +114,24 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        chatSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ChatActivity.this, messageField.getText(), Toast.LENGTH_LONG).show();
+                Date c = Calendar.getInstance().getTime();
+
+                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
+                String formattedDate = df.format(c);
+                formattedDate = formattedDate.replace('p','P');
+                formattedDate = formattedDate.replace('m','M');
+                formattedDate = formattedDate.replace('a','A');
+                formattedDate = formattedDate.replace(".","");
+
+                SingleMessage messageToBeSent = new SingleMessage(numberPlateFormatted, "server", String.valueOf(messageField.getText()), String.valueOf(formattedDate),"server "+numberPlateFormatted);
+                myRef.push().setValue(messageToBeSent);
+                messageField.setText("");
+            }
+        });
         // specify an adapter (see also next example)
     }
 
