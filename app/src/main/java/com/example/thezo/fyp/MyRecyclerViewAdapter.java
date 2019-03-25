@@ -3,6 +3,7 @@ package com.example.thezo.fyp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
 //    private ArrayList<String> messages_AL = new ArrayList<>();
-    private ArrayList<SingleMessage> singleMessagesAL = new ArrayList<>();
+    private ArrayList<SingleMessage> singleMessagesAL;
 
     private Context mContext;
 //    ArrayList<String> messages_AL,
@@ -34,6 +35,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+
 
         if(singleMessagesAL.get(i).getSender().equals("server")){
 

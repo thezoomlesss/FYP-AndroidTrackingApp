@@ -281,7 +281,7 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
             @Override
             public void onResponse(String response) {
                 // Display the first 500 characters of the response string.
-                Toast.makeText(MainScreen.this, "Connection made", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainScreen.this, "Connection made", Toast.LENGTH_SHORT).show();
                 if(gMap != null){
                     CameraPosition currentLoc = CameraPosition.builder().target(latLng).zoom(16).bearing(0).tilt(0).build();
                     gMap.moveCamera(CameraUpdateFactory.newCameraPosition(currentLoc));

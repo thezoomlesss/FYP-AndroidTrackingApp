@@ -15,6 +15,9 @@ public class SingleMessage {
         this.timestamp = timestamp;
     }
 
+    public String printOut(){
+        return "sender: "+ sender + "reciever: " + reciever + "msg: " + message + " conv:" + conversation + "time: " + timestamp;
+    }
     public String getConversation() {
         return conversation;
     }

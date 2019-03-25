@@ -33,7 +33,6 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MyRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<String> messages_AL = new ArrayList<>();
     private ArrayList<SingleMessage> singleMessageAL = new ArrayList<>();
     private String number_plate, numberPlateFormatted;
     Button chatSend;
@@ -60,7 +59,7 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.reyclerview_message_list);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-//        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
 
         mAdapter = new MyRecyclerViewAdapter(this, singleMessageAL);
         recyclerView.setAdapter(mAdapter);
@@ -79,13 +78,13 @@ public class ChatActivity extends AppCompatActivity {
         final ProgressDialog Dialog = new ProgressDialog(this);
         Dialog.setMessage("Retrieving messages...");
         Dialog.show();
-        myRef.addValueEventListener(new ValueEventListener() {
+
+
+        myRef.orderByChild("conversation").equalTo("server " + numberPlateFormatted).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-//                String value = dataSnapshot.getValue(String.class);
-//                Log.d("Messages ", "Value is: " + value);
+
+
                 singleMessageAL.clear();
                 for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
                     String receiver = (String) messageSnapshot.child("reciever").getValue();
@@ -93,20 +92,20 @@ public class ChatActivity extends AppCompatActivity {
                     String messageToSend = (String) messageSnapshot.child("message").getValue();
                     String conversation = (String) messageSnapshot.child("conversation").getValue();
                     String timestamp = (String) messageSnapshot.child("timestamp").getValue();
-
-                    if(conversation.equals("server "+numberPlateFormatted)){
-                        SingleMessage sm = new SingleMessage(sender, receiver, messageToSend, conversation, timestamp);
-                        singleMessageAL.add(sm);
-                    }
-
+                    SingleMessage sm = new SingleMessage(sender, receiver, messageToSend, conversation, timestamp);
+                    singleMessageAL.add(sm);
                 }
-//                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                mAdapter.notifyDataSetChanged();
-                recyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
-                Dialog.hide();
-//                Log.d("DateTime ", "Value is: " + map);
-            }
 
+//                Log.d("MyApp","I am here 2 " + singleMessageAL.size());
+//                for (int i1 = 0; i1 < singleMessageAL.size(); i1++) {
+////                    System.out.println("HERE: "+String.valueOf(messages_AL.get(i1)));
+//                    Log.d("MyApp","I am here " + i1);
+//                }
+
+                mAdapter.notifyDataSetChanged();
+
+                if ( Dialog.isShowing() )Dialog.hide();
+            }
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
@@ -114,12 +113,13 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+
+
         chatSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChatActivity.this, messageField.getText(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(ChatActivity.this, messageField.getText(), Toast.LENGTH_LONG).show();
                 Date c = Calendar.getInstance().getTime();
-
                 SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
                 String formattedDate = df.format(c);
                 formattedDate = formattedDate.replace('p','P');
@@ -127,9 +127,16 @@ public class ChatActivity extends AppCompatActivity {
                 formattedDate = formattedDate.replace('a','A');
                 formattedDate = formattedDate.replace(".","");
 
-                SingleMessage messageToBeSent = new SingleMessage(numberPlateFormatted, "server", String.valueOf(messageField.getText()), String.valueOf(formattedDate),"server "+numberPlateFormatted);
-                myRef.push().setValue(messageToBeSent);
-                messageField.setText("");
+                try{
+                    SingleMessage messageToBeSent = new SingleMessage(numberPlateFormatted, "server", String.valueOf(messageField.getText()), String.valueOf(formattedDate),"server "+numberPlateFormatted);
+//                    singleMessageAL.add(messageToBeSent);
+                    myRef.push().setValue(messageToBeSent);
+                    messageField.setText("");
+                }
+                finally {
+//                    mAdapter.notifyDataSetChanged();
+                }
+
             }
         });
         // specify an adapter (see also next example)
