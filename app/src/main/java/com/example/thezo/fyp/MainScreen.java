@@ -68,7 +68,6 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
 
     private LocationRequest mLocationRequest;
 
-    private Button getLocation;
     private long UPDATE_INTERVAL = 1 * 1000;  /* 1 sec */
     private long FASTEST_INTERVAL = 200; /* .2 sec */
     private TextView textView, companyNameText, numberPlateText, vehicleStatusText;
@@ -92,7 +91,6 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
         companyNameText = findViewById(R.id.idcompanyNameField);
         numberPlateText = findViewById(R.id.idnumberPlateField);
         vehicleStatusText = findViewById(R.id.idVehicleStatus);
-        getLocation = findViewById(R.id.getLocation);
         detailToggle = findViewById(R.id.detailToggle);
         topBar = findViewById(R.id.idDetailBar);
         logOut = findViewById(R.id.idLogOutImage);
@@ -189,12 +187,6 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
                 startActivity(intent);
             }
         });
-        getLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         // Add the request to the RequestQueue.
     }
 
@@ -282,7 +274,7 @@ public class MainScreen extends FragmentActivity implements MapFragment.OnFragme
             public void onResponse(String response) {
                 // Display the first 500 characters of the response string.
                 // Toast.makeText(MainScreen.this, "Connection made", Toast.LENGTH_SHORT).show();
-                if(gMap != null){
+                if(gMap != null && counter < 2){
                     CameraPosition currentLoc = CameraPosition.builder().target(latLng).zoom(16).bearing(0).tilt(0).build();
                     gMap.moveCamera(CameraUpdateFactory.newCameraPosition(currentLoc));
                     gMap.addMarker(new MarkerOptions().position(latLng).title("Current Location").snippet("You are here"));

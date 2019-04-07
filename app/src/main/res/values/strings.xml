@@ -2,11 +2,11 @@
     <string name="app_name">FYP</string>
     <string name="location">Location</string>
     <string name="getLocation">Get Location</string>
-    <string name="LoginTitle">IFMS</string>
+    <string name="LoginTitle">Where\'s My Lorry?</string>
     <string name="LoginButton">Login</string>
     <string name="idCompany">Company ID</string>
     <string name="StringCompany">Company</string>
-    <string name="idCode">Vehicle ID</string>
+    <string name="idCode">Vehicle Number</string>
     <string name="Password">Password</string>
     <string name="demo">Demo</string>
     <string name="NumberPlate">Number Plate: </string>
